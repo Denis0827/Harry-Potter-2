@@ -7,6 +7,207 @@
   import * as d3 from "d3"
   import personajes from "/src/data/personajes.json"
   import { onMount } from 'svelte';
+  import { questions, characters } from './quiz.js';
+
+  // Variables reactivas
+  let currentQuestion = 0;
+  let selectedOptions = [];
+  let showResult = false;
+  let quizStarted = false;
+  let matchedCharacter = null;
+
+  // Inicializar puntuaciones
+  let userScores = {
+    gryffindor: 0,
+    ravenclaw: 0,
+    hufflepuff: 0,
+    slytherin: 0,
+    protegerOtros: 0,
+    conocimiento: 0,
+    pertenencia: 0,
+    poderPersonal: 0,
+    directo: 0,
+    manipulador: 0,
+    analitico: 0,
+    colaborativo: 0,
+    rebelde: 0,
+    tradicional: 0,
+    innovador: 0,
+    pacificador: 0,
+  };
+
+  // Función para comenzar el quiz
+  function startQuiz() {
+    quizStarted = true;
+    currentQuestion = 0;
+    selectedOptions = new Array(questions.length).fill(null);
+    showResult = false;
+    resetScores();
+  }
+
+  // Función para resetear puntuaciones
+  function resetScores() {
+    userScores = {
+      gryffindor: 0,
+      ravenclaw: 0,
+      hufflepuff: 0,
+      slytherin: 0,
+      protegerOtros: 0,
+      conocimiento: 0,
+      pertenencia: 0,
+      poderPersonal: 0,
+      directo: 0,
+      manipulador: 0,
+      analitico: 0,
+      colaborativo: 0,
+      rebelde: 0,
+      tradicional: 0,
+      innovador: 0,
+      pacificador: 0,
+    };
+  }
+
+  // Función para seleccionar opción
+  function selectOption(optionIndex) {
+    selectedOptions[currentQuestion] = optionIndex;
+    
+    // Recalcular puntuaciones desde el principio
+    resetScores();
+    
+    // Sumar puntuaciones de todas las respuestas hasta ahora
+    for (let i = 0; i <= currentQuestion; i++) {
+      if (selectedOptions[i] !== null) {
+        const selectedOption = questions[i].options[selectedOptions[i]];
+        Object.keys(selectedOption.scores).forEach((key) => {
+          userScores[key] += selectedOption.scores[key];
+        });
+      }
+    }
+  }
+
+  // Función para ir a la siguiente pregunta
+  function nextQuestion() {
+    if (currentQuestion < questions.length - 1) {
+      currentQuestion++;
+    } else {
+      finishQuiz();
+    }
+  }
+
+  // Función para ir a la pregunta anterior
+  function previousQuestion() {
+    if (currentQuestion > 0) {
+      currentQuestion--;
+    }
+  }
+
+  // Función para finalizar el quiz
+  function finishQuiz() {
+    matchedCharacter = findBestMatch();
+    showResult = true;
+  }
+
+  // Función para encontrar el mejor personaje
+  function findBestMatch() {
+    // Determinar casa principal
+    const houses = ["gryffindor", "ravenclaw", "hufflepuff", "slytherin"];
+    const mainHouse = houses.reduce((a, b) =>
+      userScores[a] > userScores[b] ? a : b
+    );
+
+    // Determinar motivación principal
+    const motivations = [
+      "protegerOtros",
+      "conocimiento",
+      "pertenencia",
+      "poderPersonal",
+    ];
+    const mainMotivation = motivations.reduce((a, b) =>
+      userScores[a] > userScores[b] ? a : b
+    );
+
+    // Determinar método principal
+    const methods = ["directo", "manipulador", "analitico", "colaborativo"];
+    const mainMethod = methods.reduce((a, b) =>
+      userScores[a] > userScores[b] ? a : b
+    );
+
+    // Determinar actitud principal
+    const attitudes = ["rebelde", "tradicional", "innovador", "pacificador"];
+    const mainAttitude = attitudes.reduce((a, b) =>
+      userScores[a] > userScores[b] ? a : b
+    );
+
+    // Mapear resultados a categorías de personajes
+    const motivationMap = {
+      protegerOtros: "Proteger Otros",
+      conocimiento: "Conocimiento",
+      pertenencia: "Pertenencia",
+      poderPersonal: "Poder Personal",
+    };
+
+    const methodMap = {
+      directo: "Directo",
+      manipulador: "Manipulador",
+      analitico: "Analítico",
+      colaborativo: "Colaborativo",
+    };
+
+    const attitudeMap = {
+      rebelde: "Rebelde",
+      tradicional: "Tradicional",
+      innovador: "Innovador",
+      pacificador: "Pacificador",
+    };
+
+    // Buscar el personaje que mejor coincida
+    const compatibleCharacters = characters.filter((character) => {
+      return (
+        character.traits.motivacion === motivationMap[mainMotivation] &&
+        character.traits.metodo === methodMap[mainMethod] &&
+        character.traits.actitud === attitudeMap[mainAttitude]
+      );
+    });
+
+    // Si hay coincidencia exacta, devolver el primero
+    if (compatibleCharacters.length > 0) {
+      return compatibleCharacters[0];
+    }
+
+    // Si no hay coincidencia exacta, buscar por casa y motivación
+    const houseAndMotivationMatch = characters.filter((character) => {
+      return (
+        character.house.toLowerCase() === mainHouse &&
+        character.traits.motivacion === motivationMap[mainMotivation]
+      );
+    });
+
+    if (houseAndMotivationMatch.length > 0) {
+      return houseAndMotivationMatch[0];
+    }
+
+    // Como último recurso, devolver por casa
+    const houseMatch = characters.filter(
+      (character) => character.house.toLowerCase() === mainHouse
+    );
+
+    return houseMatch.length > 0 ? houseMatch[0] : characters[0];
+  }
+
+  // Función para reiniciar el quiz
+  function resetQuiz() {
+    quizStarted = false;
+    showResult = false;
+    currentQuestion = 0;
+    selectedOptions = [];
+    matchedCharacter = null;
+    resetScores();
+  }
+
+  // Variables reactivas computadas
+  $: canGoNext = selectedOptions[currentQuestion] !== null && selectedOptions[currentQuestion] !== undefined;
+  $: canGoPrev = currentQuestion > 0;
+  $: isLastQuestion = currentQuestion === questions.length - 1;
 
   const imagenCasas = {
     Gryffindor: "/images/gryffindor.svg",
@@ -262,6 +463,8 @@ function aplicarFiltro(categoria, valor) {
     }, 500);
   }
 
+  
+
 </script>
 
 <body>
@@ -271,7 +474,7 @@ function aplicarFiltro(categoria, valor) {
     <nav class="navbar navbar-expand-lg navbar-light fixed-top magical-header" style="background-image: var(--color-nav); border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
       <div style="padding-left: 35px; display: flex; gap: 20px;" class="container-fluid">
         <a class="navbar-brand" href="https://www.harrypotter.com/es" target="_blank">
-          <img src="/images/hogwarts.png" alt="Logo" width="55px" height="40">
+          <img src="/images/hogwarts.png" alt="Logo" width="70px" height="40">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -313,16 +516,82 @@ function aplicarFiltro(categoria, valor) {
 
   </div>
 
-  <div class="bajada color-fondo2">
-    <img src="/images/banderas.png" width="300" alt="banderas">
-    <div>
-      <h3 style="color: #fffaf0; font-size: 26px; font-weight: 500; font-family: 'HarryPotter">Descubre tu casa de Hogwarts</h3>
-      <button class="boton">
-        <a href="https://www.harrypotter.com/es/sorting-hat" target="_blank"
-        style="text-decoration: none; color: white;">Completar Quiz</a>
-      </button>
-    </div>
+<div class="quiz-container color-fondo2">
+  <div class="quiz-header">
+    <h3>¿Qué Personaje de Harry Potter Eres?</h3>
+    <p class="quiz-subtitle">Descubre cuál de los 30 personajes refleja mejor tu personalidad</p>
   </div>
+
+  {#if !quizStarted && !showResult}
+    <!-- Pantalla inicial -->
+    <div class="quiz-content">
+      <button class="boton" on:click={startQuiz}>Comenzar Test</button>
+    </div>
+  {/if}
+
+  {#if quizStarted && !showResult}
+    <!-- Quiz en progreso -->
+    <div class="quiz-content">
+      <div class="question-container">
+        <div class="question">{questions[currentQuestion].question}</div>
+        <div class="options">
+          {#each questions[currentQuestion].options as option, index}
+            <div 
+              class="option {selectedOptions[currentQuestion] === index ? 'selected' : ''}"
+              on:click={() => selectOption(index)}
+            >
+              {option.text}
+            </div>
+          {/each}
+        </div>
+      </div>
+
+      <div class="quiz-navigation">
+        <button 
+          class="nav-btn" 
+          disabled={!canGoPrev}
+          on:click={previousQuestion}
+        >
+          Anterior
+        </button>
+        <span class="question-counter">{currentQuestion + 1} / {questions.length}</span>
+        <button 
+          class="nav-btn" 
+          disabled={!canGoNext}
+          on:click={nextQuestion}
+        >
+          {isLastQuestion ? 'Ver Resultado' : 'Siguiente'}
+        </button>
+      </div>
+    </div>
+  {/if}
+
+  {#if showResult && matchedCharacter}
+    <!-- Resultado -->
+<div class="result-container">
+  <div class="character-result">
+      <!-- Agrega esta línea para la imagen del personaje -->
+      <img 
+          src={matchedCharacter.image} 
+          alt={matchedCharacter.name} 
+          class={`character-image ${matchedCharacter.house.toLowerCase()}`}
+      />
+      
+      <div class="character-name">{matchedCharacter.name}</div>
+      <div class="character-house">Casa: {matchedCharacter.house}</div>
+      <div class="character-traits">
+          <p><strong>Motivacion:</strong> {matchedCharacter.traits.motivacion}</p>
+          <p><strong>Metodo:</strong> {matchedCharacter.traits.metodo}</p>
+          <p><strong>Actitud:</strong> {matchedCharacter.traits.actitud}</p>
+      </div>
+      <div class="character-description">
+          <p>{matchedCharacter.description}</p>
+      </div>
+      <button class="boton" on:click={resetQuiz}>Hacer el Test de Nuevo</button>
+  </div>
+</div>
+  {/if}
+</div>
 
   <div class="color-fondo" id="codificacion" style="padding: 3rem;">
     <h1 class="cod-titulo">Codificación de las marcas</h1>
@@ -430,7 +699,7 @@ function aplicarFiltro(categoria, valor) {
     <div class="cod-fila">
       <div class="cod">
         <div class="columna" style="align-items: center; gap: 10px;">
-          <div><p class="categoria-texto"><b>Libros en los que aparecen</b></p></div>
+          <div><p class="categoria-texto"><b>Apariciones en libros</b></p></div>
           <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; align-items: flex-end;">
             <img style="height: 3vh;" src={imagenLibros[1] || "/placeholder.svg"} alt="Libro 1" />
             <img style="height: 3.5vh;" src={imagenLibros[2] || "/placeholder.svg"} alt="Libro 2" />
@@ -463,7 +732,7 @@ function aplicarFiltro(categoria, valor) {
               <img style="height: 4vh;" src={imagenMascotas["Rata"] || "/placeholder.svg"} alt="Rata" />
               <img style="height: 12vh;" src={imagenMascotas["Phoenix"] || "/placeholder.svg"} alt="Phoenix" />
             </div>
-            <div class="fila" style="gap: 1.2rem; font-size: 14px;">
+            <div class="fila" style="gap: 1.8rem; font-size: 14px;">
               <p>Lechuza</p>
               <p>Gato</p>
               <p>Sapo</p>
@@ -815,7 +1084,7 @@ function aplicarFiltro(categoria, valor) {
       <div class="filtro-fila">
         
         <div class="filtro">
-          <div><p class="filtro-texto"><b>Libros en los que aparecen</b></p></div>
+          <div><p class="filtro-texto"><b>Apariciones en libros</b></p></div>
             <div class="btn-group" role="group" aria-label="Basic outlined example">
               <button on:click={() => aplicarFiltro('libros', 1)}
                 class="btn {filtrosActivos.libros === 1 ? 'btn-primary' : 'btn-outline-primary'}"
