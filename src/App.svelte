@@ -1099,7 +1099,7 @@ function aplicarFiltro(categoria, valor) {
       </p>
     </div>
 
-    <div class="scroll-container">
+    <div>
       {#each casas as casa}
         <section class="section" style="background-color: {casa.color}">
           <h2 class="casa-title">{casa.nombre}</h2>
