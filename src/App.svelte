@@ -573,12 +573,14 @@ function aplicarFiltro(categoria, valor) {
         <div class="question">{questions[currentQuestion].question}</div>
         <div class="options">
           {#each questions[currentQuestion].options as option, index}
-            <div 
+            <button
+              type="button"
               class="option {selectedOptions[currentQuestion] === index ? 'selected' : ''}"
               on:click={() => selectOption(index)}
+              aria-pressed={selectedOptions[currentQuestion] === index}
             >
               {option.text}
-            </div>
+            </button>
           {/each}
         </div>
       </div>
@@ -1304,7 +1306,7 @@ function aplicarFiltro(categoria, valor) {
     <!-- Contenedor de la story de flourish (scrolly)-->
     <div id="my-wrapper">
       <!-- Reemplazar el ID de jeemplo por el de la story propia -->
-      <div class="flourish-embed" data-src="story/2041907" data-url="https://flo.uri.sh/story/2041907/embed" data-height="100vh">
+      <div class="flourish-embed" data-src="story/3189577"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/story/3189577/thumbnail" width="100%" alt="visualization" /></noscript>
         
         <!-- <script src="https://public.flourish.studio/resources/embed.js"></script> -->
       </div>
