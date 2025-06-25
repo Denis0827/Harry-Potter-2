@@ -1193,6 +1193,20 @@ function aplicarFiltro(categoria, valor) {
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget mi eu nulla porta fringilla. Curabitur quis tincidunt purus. Duis nec neque et augue dictum blandit a eget neque. Phasellus tempor, metus et finibus pretium, eros est sagittis orci, vitae pellentesque nisl lectus et velit. Praesent fringilla mauris vitae magna sollicitudin, sit amet tincidunt dolor facilisis. Fusce quis augue et tortor interdum bibendum. Nam dolor elit, posuere nec tortor non, molestie congue justo. Praesent nisl arcu, consectetur sed hendrerit eget, interdum ac nisi. Vestibulum tempor mattis purus. Aliquam tempus neque sed velit convallis tempor. Cras sodales nunc lorem. Nulla pharetra malesuada consequat. Nulla elementum odio non mauris mollis suscipit. Praesent consectetur nunc eget ex varius blandit. Sed id facilisis tellus.
       </p>
     </div>
+
+    <div class="scroll-container">
+      {#each casas as casa}
+        <section class="section" style="background-color: {casa.color}">
+          <h2 class="casa-title">{casa.nombre}</h2>
+          <img class="pocion-img" src={casa.imagen} alt="Poción {casa.nombre}" />
+          <ul class="valores">
+            {#each casa.valores as valor}
+              <li>{valor}</li>
+            {/each}
+          </ul>
+        </section>
+      {/each}
+    </div>
     
   </main>
 
@@ -1220,22 +1234,6 @@ function aplicarFiltro(categoria, valor) {
         </a>
     </div>
 </footer>
-
-<div class="scroll-container">
-  {#each casas as casa}
-    <section class="section" style="background-color: {casa.color}">
-      <h2 class="casa-title">{casa.nombre}</h2>
-      <img class="pocion-img" src={casa.imagen} alt="Poción {casa.nombre}" />
-      <ul class="valores">
-        {#each casa.valores as valor}
-          <li>{valor}</li>
-        {/each}
-      </ul>
-    </section>
-  {/each}
-</div>
-
-
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
