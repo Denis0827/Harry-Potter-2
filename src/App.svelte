@@ -468,23 +468,7 @@ function aplicarFiltro(categoria, valor) {
   const slides = [
     "Texto slide 1. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
     "Texto slide 2. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 3. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 4. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 5. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 6. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 7. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 8. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 9. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 10. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 11. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 12. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 13. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 14. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 15. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 16. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 17. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 18. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 19. Fusce quis augue et tortor interdum bibendum. Nam dolor elit"
+    "Texto slide 3. Fusce quis augue et tortor interdum bibendum. Nam dolor elit"
   ]
 
   function loadFlourishScrolly() {
