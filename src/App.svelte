@@ -562,85 +562,6 @@ function aplicarFiltro(categoria, valor) {
 
   </div>
 
-<div class="quiz-container color-fondo2">
-  <div class="quiz-header">
-    <h3>¿Qué Personaje de Harry Potter Eres?</h3>
-    <p class="quiz-subtitle">Descubre cuál de los 30 personajes refleja mejor tu personalidad</p>
-  </div>
-
-  {#if !quizStarted && !showResult}
-    <!-- Pantalla inicial -->
-    <div class="quiz-content">
-      <button class="boton" on:click={startQuiz}>Comenzar Test</button>
-    </div>
-  {/if}
-
-  {#if quizStarted && !showResult}
-    <!-- Quiz en progreso -->
-    <div class="quiz-content">
-      <div class="question-container">
-        <div class="question">{questions[currentQuestion].question}</div>
-        <div class="options">
-          {#each questions[currentQuestion].options as option, index}
-            <button
-              type="button"
-              class="option {selectedOptions[currentQuestion] === index ? 'selected' : ''}"
-              on:click={() => selectOption(index)}
-              aria-pressed={selectedOptions[currentQuestion] === index}
-            >
-              {option.text}
-            </button>
-          {/each}
-        </div>
-      </div>
-
-      <div class="quiz-navigation">
-        <button 
-          class="nav-btn" 
-          disabled={!canGoPrev}
-          on:click={previousQuestion}
-        >
-          Anterior
-        </button>
-        <span class="question-counter">{currentQuestion + 1} / {questions.length}</span>
-        <button 
-          class="nav-btn" 
-          disabled={!canGoNext}
-          on:click={nextQuestion}
-        >
-          {isLastQuestion ? 'Ver Resultado' : 'Siguiente'}
-        </button>
-      </div>
-    </div>
-  {/if}
-
-  {#if showResult && matchedCharacter}
-    <!-- Resultado -->
-<div class="result-container">
-  <div class="character-result">
-      <!-- Agrega esta línea para la imagen del personaje -->
-      <img 
-          src={matchedCharacter.image} 
-          alt={matchedCharacter.name} 
-          class={`character-image ${matchedCharacter.house.toLowerCase()}`}
-      />
-      
-      <div class="character-name">{matchedCharacter.name}</div>
-      <div class="character-house">Casa: {matchedCharacter.house}</div>
-      <div class="character-traits">
-          <p><strong>Motivacion:</strong> {matchedCharacter.traits.motivacion}</p>
-          <p><strong>Metodo:</strong> {matchedCharacter.traits.metodo}</p>
-          <p><strong>Actitud:</strong> {matchedCharacter.traits.actitud}</p>
-      </div>
-      <div class="character-description">
-          <p>{matchedCharacter.description}</p>
-      </div>
-      <button class="boton" on:click={resetQuiz}>Hacer el Test de Nuevo</button>
-  </div>
-</div>
-  {/if}
-</div>
-
   <div class="color-fondo" id="codificacion" style="padding: 3rem;">
     <h1 class="cod-titulo">Codificación de las marcas</h1>
     <div class="cod-fila">
@@ -1190,6 +1111,85 @@ function aplicarFiltro(categoria, valor) {
           </ul>
         </section>
       {/each}
+    </div>
+
+    <div class="quiz-container color-fondo2">
+      <div class="quiz-header">
+        <h3>¿Qué Personaje de Harry Potter Eres?</h3>
+        <p class="quiz-subtitle">Descubre cuál de los 30 personajes refleja mejor tu personalidad</p>
+      </div>
+    
+      {#if !quizStarted && !showResult}
+        <!-- Pantalla inicial -->
+        <div class="quiz-content">
+          <button class="boton" on:click={startQuiz}>Comenzar Test</button>
+        </div>
+      {/if}
+    
+      {#if quizStarted && !showResult}
+        <!-- Quiz en progreso -->
+        <div class="quiz-content">
+          <div class="question-container">
+            <div class="question">{questions[currentQuestion].question}</div>
+            <div class="options">
+              {#each questions[currentQuestion].options as option, index}
+                <button
+                  type="button"
+                  class="option {selectedOptions[currentQuestion] === index ? 'selected' : ''}"
+                  on:click={() => selectOption(index)}
+                  aria-pressed={selectedOptions[currentQuestion] === index}
+                >
+                  {option.text}
+                </button>
+              {/each}
+            </div>
+          </div>
+    
+          <div class="quiz-navigation">
+            <button 
+              class="nav-btn" 
+              disabled={!canGoPrev}
+              on:click={previousQuestion}
+            >
+              Anterior
+            </button>
+            <span class="question-counter">{currentQuestion + 1} / {questions.length}</span>
+            <button 
+              class="nav-btn" 
+              disabled={!canGoNext}
+              on:click={nextQuestion}
+            >
+              {isLastQuestion ? 'Ver Resultado' : 'Siguiente'}
+            </button>
+          </div>
+        </div>
+      {/if}
+    
+      {#if showResult && matchedCharacter}
+        <!-- Resultado -->
+    <div class="result-container">
+      <div class="character-result">
+          <!-- Agrega esta línea para la imagen del personaje -->
+          <img 
+              src={matchedCharacter.image} 
+              alt={matchedCharacter.name} 
+              class={`character-image ${matchedCharacter.house.toLowerCase()}`}
+          />
+          
+          <div class="character-name">{matchedCharacter.name}</div>
+          <div class="character-house">Casa: {matchedCharacter.house}</div>
+          <div class="character-traits">
+              <p><strong>Motivacion:</strong> {matchedCharacter.traits.motivacion}</p>
+              <p><strong>Metodo:</strong> {matchedCharacter.traits.metodo}</p>
+              <p><strong>Actitud:</strong> {matchedCharacter.traits.actitud}</p>
+          </div>
+          <div class="character-description">
+              <p>{matchedCharacter.description}</p>
+          </div>
+          <button class="boton" on:click={resetQuiz}>Hacer el Test de Nuevo</button>
+      </div>
+    </div>
+      {/if}
     </div>
     
   </main>
