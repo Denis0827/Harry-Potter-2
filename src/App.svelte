@@ -1029,148 +1029,7 @@ function aplicarFiltro(categoria, valor) {
     </div>
 
     <div class="filtro-container color-fondo" id="filtro">
-      <h1 class="filtro-titulo">Filtro de personajes</h1>
-
-      <div class="filtro-fila">
-
-        <div class="filtro">
-          <div><p class="filtro-texto"><b>Género</b></p></div>
-          <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button on:click={() => aplicarFiltro('genero', 'Hombre')} 
-              class="btn {filtrosActivos.genero === 'Hombre' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Hombre</button>
-            <button on:click={() => aplicarFiltro('genero', 'Mujer')} 
-              class="btn {filtrosActivos.genero === 'Mujer' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Mujer</button>          
-          </div>
-        </div>
-
-        <div class="filtro">
-          <div><p class="filtro-texto"><b>Protagonismo</b></p></div>
-          <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button on:click={() => aplicarFiltro('protagonismo', 'Principal')} 
-              class="btn {filtrosActivos.protagonismo === 'Principal' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Principal</button>
-            <button on:click={() => aplicarFiltro('protagonismo', 'Secundario')} 
-              class="btn {filtrosActivos.protagonismo === 'Secundario' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Secundario</button>          
-          </div>
-        </div>
-
-        <div class="filtro">
-          <div><p class="filtro-texto"><b>Estado de vida</b></p></div>
-          <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button on:click={() => aplicarFiltro('vivo', true)} 
-              class="btn {filtrosActivos.vivo === true ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Vivo</button>
-            <button on:click={() => aplicarFiltro('vivo', false)} 
-              class="btn {filtrosActivos.vivo === false ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Muerto</button>          
-          </div>
-        </div>
-
-      </div>
-
-      <div class="filtro-fila">
-
-        <div class="filtro">
-          <div><p class="filtro-texto"><b>Casa</b></p></div>
-          <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button on:click={() => aplicarFiltro('casa', 'Gryffindor')} 
-              class="btn {filtrosActivos.casa === 'Gryffindor' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Gryffindor</button>
-            <button on:click={() => aplicarFiltro('casa', 'Hufflepuff')} 
-              class="btn {filtrosActivos.casa === 'Hufflepuff' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Hufflepuff</button>
-            <button on:click={() => aplicarFiltro('casa', 'Ravenclaw')} 
-              class="btn {filtrosActivos.casa === 'Ravenclaw' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Ravenclaw</button>
-            <button on:click={() => aplicarFiltro('casa', 'Slytherin')} 
-              class="btn {filtrosActivos.casa === 'Slytherin' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Slytherin</button>
-          </div>        
-        </div>
-        
-        <div class="filtro">
-          <div><p class="filtro-texto"><b>Bando</b></p></div>
-          <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button on:click={() => aplicarFiltro('bando', 'Bueno')} 
-              class="btn {filtrosActivos.bando === 'Bueno' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Bueno</button>
-            <button on:click={() => aplicarFiltro('bando', 'Malo')} 
-              class="btn {filtrosActivos.bando === 'Malo' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Malo</button>
-          </div>        
-        </div>
-
-        <div class="filtro">
-          <div><p class="filtro-texto"><b>Nivel de magia</b></p></div>
-          <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button on:click={() => aplicarFiltro('nivel_magia', 1)} 
-              class="btn {filtrosActivos.nivel_magia === 1 ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">1</button>
-            <button on:click={() => aplicarFiltro('nivel_magia', 2)} 
-              class="btn {filtrosActivos.nivel_magia === 2 ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">2</button>
-            <button on:click={() => aplicarFiltro('nivel_magia', 3)} 
-              class="btn {filtrosActivos.nivel_magia === 3 ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">3</button>
-          </div>        
-        </div>
-      
-      </div>
-
-      <div class="filtro-fila">
-        
-        <div class="filtro">
-          <div><p class="filtro-texto"><b>Apariciones en libros</b></p></div>
-            <div class="btn-group" role="group" aria-label="Basic outlined example">
-              <button on:click={() => aplicarFiltro('libros', 1)}
-                class="btn {filtrosActivos.libros === 1 ? 'btn-primary' : 'btn-outline-primary'}"
-                style="font-size: 14px;">1</button>
-              <button on:click={() => aplicarFiltro('libros', 2)}
-                class="btn {filtrosActivos.libros === 2 ? 'btn-primary' : 'btn-outline-primary'}"
-                style="font-size: 14px;">2</button>
-              <button on:click={() => aplicarFiltro('libros', 3)}
-                class="btn {filtrosActivos.libros === 3 ? 'btn-primary' : 'btn-outline-primary'}"
-                style="font-size: 14px;">3</button>
-              <button on:click={() => aplicarFiltro('libros', 4)}
-                class="btn {filtrosActivos.libros === 4 ? 'btn-primary' : 'btn-outline-primary'}"
-                style="font-size: 14px;">4</button>
-              <button on:click={() => aplicarFiltro('libros', 5)}
-                class="btn {filtrosActivos.libros === 5 ? 'btn-primary' : 'btn-outline-primary'}"
-                style="font-size: 14px;">5</button>
-              <button on:click={() => aplicarFiltro('libros', 6)}
-                class="btn {filtrosActivos.libros === 6 ? 'btn-primary' : 'btn-outline-primary'}"
-                style="font-size: 14px;">6</button>
-              <button on:click={() => aplicarFiltro('libros', 7)}
-                class="btn {filtrosActivos.libros === 7 ? 'btn-primary' : 'btn-outline-primary'}"
-                style="font-size: 14px;">7</button>
-            </div>
-        </div>
-
-        <div class="filtro">
-          <div><p class="filtro-texto"><b>Mascota</b></p></div>
-          <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button on:click={() => aplicarFiltro('mascota', 'Lechuza')}
-              class="btn {filtrosActivos.mascota === 'Lechuza' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Lechuza</button>
-            <button on:click={() => aplicarFiltro('mascota', 'Gato')}
-              class="btn {filtrosActivos.mascota === 'Gato' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Gato</button>
-            <button on:click={() => aplicarFiltro('mascota', 'Sapo')}
-              class="btn {filtrosActivos.mascota === 'Sapo' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Sapo</button>
-            <button on:click={() => aplicarFiltro('mascota', 'Rata')}
-              class="btn {filtrosActivos.mascota === 'Rata' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Rata</button>
-            <button on:click={() => aplicarFiltro('mascota', 'Phoenix')}
-              class="btn {filtrosActivos.mascota === 'Phoenix' ? 'btn-primary' : 'btn-outline-primary'}"
-              style="font-size: 14px;">Phoenix</button>
-          </div>        
-        </div>
-      
-      </div>
+      <h1 class="filtro-titulo">Catálogo de personajes</h1>
 
       <!-- Sección de resultados filtrados -->
       <div class="resultados-container color-fondo">
@@ -1278,25 +1137,8 @@ function aplicarFiltro(categoria, valor) {
             {/each}
           </div>
           
-          <p class="text-center mt-3">
-            <strong>{personajesFiltrados.length}</strong> personaje{personajesFiltrados.length !== 1 ? 's' : ''} encontrado{personajesFiltrados.length !== 1 ? 's' : ''}
-          </p>
         {/if}
       </div>
-    </div>
-
-        
-    <section id="header">
-      <img src="./public/images/worldcuplogo.png" alt="World Cup Logo" class="logo">
-      <h1 id="main_title">
-        Uno por uno, quiénes son los jugadores con más chances de jugar en el Mundial
-      </h1>
-    </section>
-
-    <div class="texto_container">
-      <p class="texto_parrafo">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget mi eu nulla porta fringilla. Curabitur quis tincidunt purus. Duis nec neque et augue dictum blandit a eget neque. Phasellus tempor, metus et finibus pretium, eros est sagittis orci, vitae pellentesque nisl lectus et velit. Praesent fringilla mauris vitae magna sollicitudin, sit amet tincidunt dolor facilisis. Fusce quis augue et tortor interdum bibendum. Nam dolor elit, posuere nec tortor non, molestie congue justo. Praesent nisl arcu, consectetur sed hendrerit eget, interdum ac nisi. Vestibulum tempor mattis purus. Aliquam tempus neque sed velit convallis tempor. Cras sodales nunc lorem. Nulla pharetra malesuada consequat. Nulla elementum odio non mauris mollis suscipit. Praesent consectetur nunc eget ex varius blandit. Sed id facilisis tellus.
-      </p>
     </div>
 
     <div class="texto_container">
@@ -1306,7 +1148,7 @@ function aplicarFiltro(categoria, valor) {
     <!-- Contenedor de la story de flourish (scrolly)-->
     <div id="my-wrapper">
       <!-- Reemplazar el ID de jeemplo por el de la story propia -->
-      <div class="flourish-embed" data-src="story/3189577"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/story/3189577/thumbnail" width="100%" alt="visualization" /></noscript>
+      <div class="flourish-embed" data-src="story/3189577" data-url="https://flo.uri.sh/story/3189577/embed" data-height="80vh">
         
         <!-- <script src="https://public.flourish.studio/resources/embed.js"></script> -->
       </div>
@@ -1316,7 +1158,7 @@ function aplicarFiltro(categoria, valor) {
         <p>
           {@html slide}
           <!-- svelte-ignore a11y-missing-content -->
-          <a href={"#story/2041907/slide-" + (index + 1)}></a>
+          <a href={"#story/3189577/slide-" + (index + 1)}></a>
         </p>
       {/each}
     </div>
