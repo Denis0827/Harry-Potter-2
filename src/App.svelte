@@ -500,7 +500,32 @@ function aplicarFiltro(categoria, valor) {
     loadFlourishScrolly()
   });
   
-
+  const casas = [
+    {
+      nombre: "Gryffindor",
+      color: "#ae0001",
+      imagen: "/images/rojo.png", // Ruta ajustala si cambia
+      valores: ["Brave", "Chivalrous", "Courageous"]
+    },
+    {
+      nombre: "Slytherin",
+      color: "#2a623d",
+      imagen: "/images/verde.png",
+      valores: ["Cunning", "Ambitious", "Influential"]
+    },
+    {
+      nombre: "Hufflepuff",
+      color: "#ffdb00",
+      imagen: "/images/amarillo.png",
+      valores: ["Loyal", "Patient", "Hard Working"]
+    },
+    {
+      nombre: "Ravenclaw",
+      color: "#222f5b",
+      imagen: "/images/azul.png",
+      valores: ["Clever", "Thoughtful", "Intuitive"]
+    }
+  ];
 </script>
 
 
@@ -1195,6 +1220,20 @@ function aplicarFiltro(categoria, valor) {
         </a>
     </div>
 </footer>
+
+<div class="scroll-container">
+  {#each casas as casa}
+    <section class="section" style="background-color: {casa.color}">
+      <h2 class="casa-title">{casa.nombre}</h2>
+      <img class="pocion-img" src={casa.imagen} alt="Poción {casa.nombre}" />
+      <ul class="valores">
+        {#each casa.valores as valor}
+          <li>{valor}</li>
+        {/each}
+      </ul>
+    </section>
+  {/each}
+</div>
 
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
