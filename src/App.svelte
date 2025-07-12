@@ -8,6 +8,8 @@
   import personajes from "/src/data/personajes.json"
   import { onMount } from 'svelte';
   import { questions, characters } from './quiz.js';
+  import { fade, fly } from 'svelte/transition';
+
 
   // Variables reactivas
   let currentQuestion = 0;
@@ -466,9 +468,11 @@ function aplicarFiltro(categoria, valor) {
   // Función para inicializar el componente de Flourish y tomar el script que nos permite hacer el scrolly gratis!
   // Array para guardar la data de cada slide. Cambiar cada uno con el epígrafe específico para cada slide.
   const slides = [
-    "Texto slide 1. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 2. Fusce quis augue et tortor interdum bibendum. Nam dolor elit",
-    "Texto slide 3. Fusce quis augue et tortor interdum bibendum. Nam dolor elit"
+    "En el mundo mágico hay muchos personajes, cada uno con su propia historia, origen y habilidades. Pero todos tienen algo en común: pertenecen a una de las cuatro casas de Hogwarts.",
+    
+    "Al organizarlos por casa, empezamos a ver sus identidades más claramente. Leones valientes, serpientes astutas, tejones leales y águilas sabias comparten el mismo espacio, pero no la misma esencia.",
+    
+    "Ahora los miramos en detalle: cada casa por separado, cada personaje con su poder. El tamaño del círculo revela cuán potente es su magia. Algunos destacan con fuerza, otros acompañan desde el fondo."
   ]
 
   function loadFlourishScrolly() {
@@ -510,7 +514,75 @@ function aplicarFiltro(categoria, valor) {
       valores: ["Clever", "Thoughtful", "Intuitive"]
     }
   ];
+
+  // --- NAVBAR SECCIÓN ACTIVA ---
+  let seccionActiva = 'home';
+  const secciones = [
+    { id: 'home', label: 'Home' },
+    { id: 'codificacion', label: 'Codificación' },
+    { id: 'representacion', label: 'Representación' },
+    { id: 'filtro', label: 'Filtrado' }
+  ];
+
+  function handleScroll() {
+    for (const sec of secciones) {
+      const el = document.getElementById(sec.id);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= 80 && rect.bottom > 80) {
+          seccionActiva = sec.id;
+          break;
+        }
+      }
+    }
+  }
+
+  onMount(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  });
+
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      const navbar = document.querySelector('.navbar');
+      const yOffset = navbar ? -navbar.offsetHeight : 0;
+      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'auto' });
+      seccionActiva = id;
+    }
+  }
+  // --- FIN NAVBAR SECCIÓN ACTIVA ---
 </script>
+
+<style>
+  html {
+    scroll-behavior: auto !important;
+  }
+  #home, #codificacion, #representacion, #filtro {
+    scroll-margin-top: 70px;
+  }
+  .navbar-nav .nav-link {
+    color: #fff !important;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding-left: 18px;
+    padding-right: 18px;
+    text-align: center;
+    border-bottom: 2px solid transparent;
+    /* Sin transición para cambio instantáneo */
+  }
+  .navbar-nav .nav-link.active {
+    color: #ffd700 !important;
+    /* border-bottom: 2px solid #ffd700; */
+    text-shadow: 0 0 8px #ffd70099;
+    background: rgba(255, 215, 0, 0.08);
+    border-radius: 6px;
+  }
+  .navbar-nav {
+    align-items: center;
+  }
+</style>
 
 
 <body>
@@ -518,7 +590,7 @@ function aplicarFiltro(categoria, valor) {
 
   <div class="home" id="home">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top magical-header" style="background-image: var(--color-nav); border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-      <div style="padding-left: 35px; display: flex; gap: 20px;" class="container-fluid">
+      <div style="padding-left: 35px; display: flex; gap: 20px; align-items: center;" class="container-fluid">
         <a class="navbar-brand" href="https://www.harrypotter.com/es" target="_blank">
           <img src="/images/hogwarts.png" alt="Logo" width="70px" height="40">
         </a>
@@ -528,19 +600,20 @@ function aplicarFiltro(categoria, valor) {
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#home">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#codificacion">Codificación</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#representacion">Representación</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#filtro">Filtrado</a>
-            </li>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="align-items: center;">
+            {#each secciones as sec}
+              <li class="nav-item">
+                <a
+                  class="nav-link {seccionActiva === sec.id ? 'active' : ''}"
+                  aria-current={seccionActiva === sec.id ? 'page' : undefined}
+                  href={"#" + sec.id}
+                  style="font-weight: {seccionActiva === sec.id ? 'bold' : 'normal'};"
+                  on:click|preventDefault={() => scrollToSection(sec.id)}
+                >
+                  {sec.label}
+                </a>
+              </li>
+            {/each}
           </ul>
           <!-- Texto a la derecha -->
           <span style="padding-right: 30px;" class="navbar-text ms-auto d-none d-lg-block">
@@ -714,16 +787,14 @@ function aplicarFiltro(categoria, valor) {
     </div>
   </div>
 
-    <div style="padding: 2rem;" id="representacion" class="color-fondo">
-    </div>
                 
-    <div class="book-container" >
-      <div id="libro-animado2"> </div>
+    <div class="book-container" id="representacion">
+      <div id="libro-animado2" > </div>
 
       <!-- Imagen del libro como fondo -->
-      <img src="/images/librofondo.jpeg" alt="Libro abierto" class="book-background">
+      <img src="/images/librofondo.jpeg" alt="Libro abierto" class="book-background" >
         
-      <div class="book-pages">
+      <div class="book-pages"  >
         <!-- Navegación del libro con event handlers corregidos -->
         <div class="book-navigation">
           <!-- Flechas de navegación -->
@@ -759,7 +830,7 @@ function aplicarFiltro(categoria, valor) {
           </div>
         </div>
 
-          <div style="margin-top: 80vh;" id="libro-animado"> </div>
+        <div style="margin-top: 80vh;" id="libro-animado"> </div>
 
           <!-- Página izquierda -->
           <div class="catalogo-container book-page">
@@ -1071,39 +1142,53 @@ function aplicarFiltro(categoria, valor) {
       </div>
     </div>
 
-    <div class="texto_container">
-      <h2 class="subtitulo">Los posibles elegidos de Scaloni</h2>
-    </div>
-
-    <!-- Contenedor de la story de flourish (scrolly)-->
-    <div id="my-wrapper">
-      <!-- Reemplazar el ID de jeemplo por el de la story propia -->
-      <div class="flourish-embed" data-src="story/3189577" data-url="https://flo.uri.sh/story/3189577/embed" data-height="80vh">
-        
-        <!-- <script src="https://public.flourish.studio/resources/embed.js"></script> -->
+    <div class="color-fondo">
+      <div class="texto_container">
+        <h2 class="subtitulo">Un mapa del mundo mágico</h2>
       </div>
 
-      <!-- Iteramos sobre las distintas slides del componente de Flourish -->
-      {#each slides as slide, index}
-        <p>
-          {@html slide}
-          <!-- svelte-ignore a11y-missing-content -->
-          <a href={"#story/3189577/slide-" + (index + 1)}></a>
-        </p>
-      {/each}
-    </div>
+      <!-- Contenedor de la story de flourish (scrolly)-->
+      <div id="my-wrapper">
+        <!-- Reemplazar el ID de jeemplo por el de la story propia -->
+        <div class="flourish-embed" data-src="story/3189577" data-url="https://flo.uri.sh/story/3189577/embed" data-height="80vh">
+          
+          <!-- <script src="https://public.flourish.studio/resources/embed.js"></script> -->
+        </div>
 
-    <div class="texto_container">
-      <p class="texto_parrafo">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget mi eu nulla porta fringilla. Curabitur quis tincidunt purus. Duis nec neque et augue dictum blandit a eget neque. Phasellus tempor, metus et finibus pretium, eros est sagittis orci, vitae pellentesque nisl lectus et velit. Praesent fringilla mauris vitae magna sollicitudin, sit amet tincidunt dolor facilisis. Fusce quis augue et tortor interdum bibendum. Nam dolor elit, posuere nec tortor non, molestie congue justo. Praesent nisl arcu, consectetur sed hendrerit eget, interdum ac nisi. Vestibulum tempor mattis purus. Aliquam tempus neque sed velit convallis tempor. Cras sodales nunc lorem. Nulla pharetra malesuada consequat. Nulla elementum odio non mauris mollis suscipit. Praesent consectetur nunc eget ex varius blandit. Sed id facilisis tellus.
-      </p>
-    </div>
+        <!-- Iteramos sobre las distintas slides del componente de Flourish -->
+        {#each slides as slide, index}
+          <p>
+            {@html slide}
+            <!-- svelte-ignore a11y-missing-content -->
+            <a href={"#story/3189577/slide-" + (index + 1)}></a>
+          </p>
+        {/each}
+      </div>
+
+      <div class="texto_container_con_imagen">
+        <div class="texto_parrafo_contenido">
+          <p class="texto_parrafo">
+            Esta es solo una forma de recorrer el universo mágico. Al visualizar a sus personajes según su casa y poder, emergen patrones, sorpresas y contrastes. Algunos nombres conocidos, otros que rara vez son mencionados, pero todos forman parte de una red que sostiene los encantos, desafíos y secretos de este mundo compartido. Y como en toda buena historia, lo visible es solo el principio.
+          </p>
+        </div>
+        <div class="imagen_parrafo">
+          <img src="/images/hogsmeade.jpg" alt="Descripción de la imagen" />
+        </div>
+      </div>
 
     <div>
-      {#each casas as casa}
+      {#each casas as casa, i (casa.nombre)}
         <section class="section" style="background-color: {casa.color}">
           <h2 class="casa-title">{casa.nombre}</h2>
-          <img class="pocion-img" src={casa.imagen} alt="Poción {casa.nombre}" />
+          <!-- Imagen con transición animada al cambiar de casa -->
+          <img
+            class="pocion-img"
+            src={casa.imagen}
+            alt="Poción {casa.nombre}"
+            in:fade={{ duration: 400 }}
+            out:fade={{ duration: 400 }}
+            key={casa.imagen}
+          />
           <ul class="valores">
             {#each casa.valores as valor}
               <li>{valor}</li>
@@ -1112,6 +1197,8 @@ function aplicarFiltro(categoria, valor) {
         </section>
       {/each}
     </div>
+    </div>
+
 
     <div class="quiz-container color-fondo2">
       <div class="quiz-header">

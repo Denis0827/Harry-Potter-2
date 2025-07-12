@@ -937,15 +937,31 @@ a:hover {
   font-size: 1.5em;
   text-align: center;
 }
-.texto_container {
-  max-width: 700px;
+.texto_container_con_imagen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
   padding: 0 20px;
-  margin: auto;
+  margin: 40px;
   margin-bottom: 100px;
-  text-align: left;
+  flex-wrap: wrap; /* se acomoda en columna en pantallas chicas */
 }
+
+.texto_parrafo_contenido {
+  flex: 1;
+  min-width: 280px;
+}
+
+.imagen_parrafo img {
+  max-width: 300px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 .texto_parrafo {
-  margin: 50px auto;
+  margin: 30px;
 }
 .logo {
   max-width: 100px; 
