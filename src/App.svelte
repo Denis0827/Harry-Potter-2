@@ -546,7 +546,9 @@ function aplicarFiltro(categoria, valor) {
     const el = document.getElementById(id);
     if (el) {
       const navbar = document.querySelector('.navbar');
-      const yOffset = navbar ? -navbar.offsetHeight : 0;
+      const navbarHeight = navbar ? navbar.offsetHeight : 0;
+      const extraOffset = 40; // Offset extra para dejar más espacio visual
+      const yOffset = -navbarHeight + extraOffset;
       const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: 'auto' });
       seccionActiva = id;
