@@ -1178,6 +1178,9 @@ function aplicarFiltro(categoria, valor) {
         </div>
       </div>
 
+      <div class="flourish-embed" data-src="story/3192860"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/story/3192860/thumbnail" alt="visualization" /></noscript></div>
+
+
     <div>
       {#each casas as casa, i (casa.nombre)}
         <section class="section" style="background-color: {casa.color}">
