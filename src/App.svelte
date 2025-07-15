@@ -468,11 +468,19 @@ function aplicarFiltro(categoria, valor) {
   // Función para inicializar el componente de Flourish y tomar el script que nos permite hacer el scrolly gratis!
   // Array para guardar la data de cada slide. Cambiar cada uno con el epígrafe específico para cada slide.
   const slides = [
-    "En el mundo mágico hay muchos personajes, cada uno con su propia historia, origen y habilidades. Pero todos tienen algo en común: pertenecen a una de las cuatro casas de Hogwarts.",
+    "En nuestro mundo mágico hay muchos personajes, cada uno con su propia historia, origen y habilidades. Pero todos tienen algo en común: pertenecen a una de las cuatro casas de Hogwarts.",
     
     "Al organizarlos por casa, empezamos a ver sus identidades más claramente. Leones valientes, serpientes astutas, tejones leales y águilas sabias comparten el mismo espacio, pero no la misma esencia.",
     
-    "Ahora los miramos en detalle: cada casa por separado, cada personaje con su poder. El tamaño del círculo revela cuán potente es su magia. Algunos destacan con fuerza, otros acompañan desde el fondo."
+    "Ahora los miramos en detalle: cada casa por separado, cada personaje con su poder. El tamaño del círculo revela cuán potente es su magia. Algunos destacan con fuerza, mientras que otros no parecen predominar en su poder."
+  ]
+
+  const slides2 = [
+    "En nuestro mundo mágico hay muchos personajes, cada uno con su propia historia, origen y habilidades. Pero todos tienen algo en común: pertenecen a una de las cuatro casas de Hogwarts.",
+    
+    "Al organizarlos por casa, empezamos a ver sus identidades más claramente. Leones valientes, serpientes astutas, tejones leales y águilas sabias comparten el mismo espacio, pero no la misma esencia.",
+    
+    "Ahora los miramos en detalle: cada casa por separado, cada personaje con su poder. El tamaño del círculo revela cuán potente es su magia. Algunos destacan con fuerza, mientras que otros no parecen predominar en su poder."
   ]
 
   function loadFlourishScrolly() {
@@ -584,6 +592,60 @@ function aplicarFiltro(categoria, valor) {
   .navbar-nav {
     align-items: center;
   }
+  .imagenes-fullscreen {
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+  .img-slide {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .img-slide img {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    display: block;
+  }
+  .slide-content {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .gryffindor-title {
+    color: #d04a4a;
+    font-family: 'HarryPotter', serif;
+    font-size: 3.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1em;
+    text-shadow: 0 2px 8px #000a;
+  }
+  .pocion-img {
+    width: 70px;
+    max-width: 30vw;
+    margin-bottom: 2.5rem;
+    margin-top: 1.5rem;
+    z-index: 2;
+  }
+  .gryffindor-palabras {
+    color: #fff;
+    font-size: 1.5rem;
+    text-align: center;
+    text-shadow: 0 2px 8px #000a;
+    font-family: 'serif';
+    margin-top: 1.5rem;
+    line-height: 2.2rem;
+  }
 </style>
 
 
@@ -637,7 +699,7 @@ function aplicarFiltro(categoria, valor) {
 
   </div>
 
-  <div class="color-fondo" id="codificacion" style="padding: 3rem;">
+  <div class="color-fondo" id="codificacion" style="padding: 4rem;">
     <h1 class="cod-titulo">Codificación de las marcas</h1>
     <div class="cod-fila">
 
@@ -1030,9 +1092,11 @@ function aplicarFiltro(categoria, valor) {
 
         </div>
     </div>
+    
 
     <div class="filtro-container color-fondo" id="filtro">
-      <h1 class="filtro-titulo">Catálogo de personajes</h1>
+      <h1 class="filtro-titulo" style="margin-bottom: 0;">Catálogo de personajes</h1>
+      <h2 class="subtitulo">Un catálogo tan mágico que hasta Dobby quiere uno</h2>
 
       <!-- Sección de resultados filtrados -->
       <div class="resultados-container color-fondo">
@@ -1142,13 +1206,32 @@ function aplicarFiltro(categoria, valor) {
           
         {/if}
       </div>
-    </div>
 
     <div class="color-fondo">
-      <div class="texto_container">
-        <h2 class="subtitulo">Un mapa del mundo mágico</h2>
-      </div>
+      <div style="background-color: #e4d3b2; /* un beige más claro que el fondo */
+                border: 3px solid #c2a477; 
+                border-radius: 20px;
+                padding: 30px;
+                max-width: 900px;
+                margin: 40px auto;
+                text-align: center;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
 
+      <p style="font-size: 18px; margin-bottom: 20px;">
+        Ahora que conocés a los personajes... 🧙‍♂️ <br>
+        ¡Es hora de explorar el mundo donde la magia sucede!
+      </p>
+
+      <div style="height: 4px; background: linear-gradient(to right, #a97c50, #d9c2a6); margin: 20px 0; border-radius: 2px;"></div>
+
+      <h2 style="font-family: 'HarryPotter', serif; font-size: 28px; margin: 0; letter-spacing: 1px;">
+        ¿Qué nos dicen las Casas de Hogwarts?
+      </h2>
+
+    </div>
+    
+
+    <div class="color-fondo">
       <!-- Contenedor de la story de flourish (scrolly)-->
       <div id="my-wrapper">
         <!-- Reemplazar el ID de jeemplo por el de la story propia -->
@@ -1167,47 +1250,66 @@ function aplicarFiltro(categoria, valor) {
         {/each}
       </div>
 
-      <div class="texto_container_con_imagen">
-        <div class="texto_parrafo_contenido">
-          <p class="texto_parrafo">
-            Esta es solo una forma de recorrer el universo mágico. Al visualizar a sus personajes según su casa y poder, emergen patrones, sorpresas y contrastes. Algunos nombres conocidos, otros que rara vez son mencionados, pero todos forman parte de una red que sostiene los encantos, desafíos y secretos de este mundo compartido. Y como en toda buena historia, lo visible es solo el principio.
-          </p>
+
+      <div class="color-fondo">
+        <div style="background-color: #e4d3b2; /* un beige más claro que el fondo */
+                  border: 3px solid #c2a477; 
+                  border-radius: 20px;
+                  padding: 30px;
+                  max-width: 900px;
+                  margin: 40px auto;
+                  margin-bottom: 5rem;
+                  text-align: center;
+                  box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+
+        <p style="font-size: 18px; margin-bottom: 20px;">
+          El poder acumulado en cada Casa es distintivo <br>
+          Pareciera que existe una relación entre la fuerza y los valores de la Casa
+        </p>
+
+        <div style="height: 4px; background: linear-gradient(to right, #a97c50, #d9c2a6); margin: 20px 0; border-radius: 2px;"></div>
+
+        <h2 style="font-family: 'HarryPotter', serif; font-size: 28px; margin: 0; letter-spacing: 1px;">
+          ¿Qué representa cada Casa de Hogwarts?
+        </h2>
+
+      </div>
+
+
+      <div class="imagenes-fullscreen">
+        <!-- Slide 1: Gryffindor personalizado -->
+        <div class="img-slide" style="position: relative;">
+          <img src="/images/slides_1.png" alt="Descripción de la imagen" />
+          <div class="slide-content">
+            <h1 class="gryffindor-title">GRYFFINDOR</h1>
+            <img src="/images/rojo.png" alt="Poción Gryffindor" class="pocion-img" />
+            <div class="gryffindor-palabras">
+              <div>Valentía</div>
+              <div>Lealtad</div>
+              <div>Espíritu de lucha</div>
+            </div>
+          </div>
         </div>
-        <div class="imagen_parrafo">
-          <img src="/images/hogsmeade.jpg" alt="Descripción de la imagen" />
+        <!-- Slides restantes -->
+        <div class="img-slide">
+          <img src="/images/slides_2.png" alt="Descripción de la imagen" />
+        </div>
+        <div class="img-slide">
+          <img src="/images/slides_4.png" alt="Descripción de la imagen" />
+        </div>
+        <div class="img-slide">
+          <img src="/images/slides_3.png" alt="Descripción de la imagen" />
         </div>
       </div>
 
-      <div class="flourish-embed" data-src="story/3192860"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/story/3192860/thumbnail" alt="visualization" /></noscript></div>
-
-
-    <div>
-      {#each casas as casa, i (casa.nombre)}
-        <section class="section" style="background-color: {casa.color}">
-          <h2 class="casa-title">{casa.nombre}</h2>
-          <!-- Imagen con transición animada al cambiar de casa -->
-          <img
-            class="pocion-img"
-            src={casa.imagen}
-            alt="Poción {casa.nombre}"
-            in:fade={{ duration: 400 }}
-            out:fade={{ duration: 400 }}
-            key={casa.imagen}
-          />
-          <ul class="valores">
-            {#each casa.valores as valor}
-              <li>{valor}</li>
-            {/each}
-          </ul>
-        </section>
-      {/each}
-    </div>
     </div>
 
 
-    <div class="quiz-container color-fondo2">
+
+
+    <div class="quiz-container color-fondo2" style="padding: 5rem;">
       <div class="quiz-header">
-        <h3>¿Qué Personaje de Harry Potter Eres?</h3>
+        <h3>Y tú... ¿Qué personaje de Hogwarts eres?</h3>
         <p class="quiz-subtitle">Descubre cuál de los 30 personajes refleja mejor tu personalidad</p>
       </div>
     

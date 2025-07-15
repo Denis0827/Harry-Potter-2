@@ -3,11 +3,21 @@
 }
 
 .color-fondo {
-  background-color: #cabda1;
+  background-color: rgb(202, 189, 161);
 }
+
 
 .color-fondo2 {
   background-color: #1b2a41;
+}
+
+
+.color-fondo3 {
+  background-color: #c9b488;
+}
+
+.color-fondo4 {
+  background-color: rgba(229, 208, 170, 0.881);
 }
 
 @font-face {
@@ -575,13 +585,11 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5vh;
-  padding-top: 12vh;
-  padding-bottom: 8vh;
+  padding-top: 6.5rem;
 }
 
 .filtro-titulo {
   text-align: center;
-  padding-bottom: 1vh;
   font-family: "HarryPotter", sans-serif;
 }
 
