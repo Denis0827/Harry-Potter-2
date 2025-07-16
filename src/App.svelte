@@ -529,7 +529,7 @@ function aplicarFiltro(categoria, valor) {
     { id: 'home', label: 'Home' },
     { id: 'codificacion', label: 'Codificación' },
     { id: 'representacion', label: 'Representación' },
-    { id: 'filtro', label: 'Filtrado' }
+    { id: 'filtro', label: 'Catálogo' }
   ];
 
   function handleScroll() {
@@ -593,18 +593,15 @@ function aplicarFiltro(categoria, valor) {
     align-items: center;
   }
   .imagenes-fullscreen {
-    width: 100vw;
+    width: 100%;
     margin: 0;
     padding: 0;
   }
   .img-slide {
-    width: 100vw;
     height: 100vh;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+    margin: 0;
+    padding: 0;
   }
   .img-slide img {
     width: 100vw;
@@ -645,6 +642,56 @@ function aplicarFiltro(categoria, valor) {
     font-family: 'serif';
     margin-top: 1.5rem;
     line-height: 2.2rem;
+  } 
+  .slide-content-gryffindor {
+    justify-content: flex-start;
+    padding-top: 7vh;
+  }
+  .gryffindor-title {
+    color: #d04a4a;
+    font-family: 'HarryPotter', serif;
+    font-size: 3.2rem;
+    margin-top: 3rem;
+    margin-bottom: 2.2rem;
+    letter-spacing: 0.1em;
+    text-shadow: 0 2px 8px #000a;
+  }
+  .pocion-img-gryffindor {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 2.5rem;
+    margin-top: 0.5rem;
+    z-index: 2;
+  }
+  .gryffindor-palabras {
+    color: #fff;
+    font-size: 1.75rem;
+    text-align: center;
+    text-shadow: 0 2px 8px #000a;
+    font-family: 'serif';
+    margin-top: 2.2rem;
+    line-height: 2.2rem;
+    letter-spacing: 0.02em;
+  }
+  @media (max-width: 600px) {
+    .gryffindor-title { font-size: 2.1rem; }
+    .pocion-img-gryffindor { width: 60px; }
+    .gryffindor-palabras { font-size: 1.05rem; }
+    .slide-content-gryffindor { padding-top: 3vh; }
+  }
+  .slide-bg-blur {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    display: block;
+    filter: blur(2px) brightness(1.08) saturate(1.1);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .img-slide > .slide-content {
+    z-index: 2;
   }
 </style>
 
@@ -1279,10 +1326,10 @@ function aplicarFiltro(categoria, valor) {
       <div class="imagenes-fullscreen">
         <!-- Slide 1: Gryffindor personalizado -->
         <div class="img-slide" style="position: relative;">
-          <img src="/images/slides_1.png" alt="Descripción de la imagen" />
-          <div class="slide-content">
+          <img src="/images/fondo_gryffindor.jpg" alt="Descripción de la imagen" class="slide-bg-blur" />
+          <div class="slide-content slide-content-gryffindor">
             <h1 class="gryffindor-title">GRYFFINDOR</h1>
-            <img src="/images/rojo.png" alt="Poción Gryffindor" class="pocion-img" />
+            <img src="/images/rojo.png" alt="Poción Gryffindor" style="width: 18rem; height: 18rem;" />
             <div class="gryffindor-palabras">
               <div>Valentía</div>
               <div>Lealtad</div>
@@ -1290,17 +1337,43 @@ function aplicarFiltro(categoria, valor) {
             </div>
           </div>
         </div>
-        <!-- Slides restantes -->
-        <div class="img-slide">
-          <img src="/images/slides_2.png" alt="Descripción de la imagen" />
+        <!-- Slide 2: Hufflpuff personalizado -->
+        <div class="img-slide" style="position: relative;">
+          <img src="/images/fondo_hufflepuff.png" alt="Descripción de la imagen" class="slide-bg-blur" />
+          <div class="slide-content slide-content-gryffindor">
+            <h1 class="gryffindor-title" style="color: yellow;">HUFFLEPUFF</h1>
+            <img src="/images/amarillo.png" alt="Poción Gryffindor" style="width: 18rem; height: 18rem;" />
+            <div class="gryffindor-palabras">
+              <div>Honestidad</div>
+              <div>Justicia</div>
+              <div>Paciencia</div>
+            </div>
+          </div>
         </div>
-        <div class="img-slide">
-          <img src="/images/slides_4.png" alt="Descripción de la imagen" />
+        <div class="img-slide" style="position: relative;">
+          <img src="/images/fondo_slytherin.png" alt="Descripción de la imagen" class="slide-bg-blur" />
+          <div class="slide-content slide-content-gryffindor">
+            <h1 class="gryffindor-title" style="color: #50A34D;">SLYTHERIN</h1>
+            <img src="/images/verde.png" alt="Poción Gryffindor" style="width: 13rem; height: 16rem;" />
+            <div class="gryffindor-palabras">
+              <div>Ambición</div>
+              <div>Astucia</div>
+              <div>Determinación</div>
+            </div>
+          </div>
         </div>
-        <div class="img-slide">
-          <img src="/images/slides_3.png" alt="Descripción de la imagen" />
+        <div class="img-slide" style="position: relative;">
+          <img src="/images/fondo_ravenclaw.png" alt="Descripción de la imagen" class="slide-bg-blur" />
+          <div class="slide-content slide-content-gryffindor">
+            <h1 class="gryffindor-title" style="color: #C6ECFF;">RAVENCLAW</h1>
+            <img src="/images/azul.png" alt="Poción Gryffindor" style="width: 13rem; height: 17rem;" />
+            <div class="gryffindor-palabras">
+              <div>Inteligencia</div>
+              <div>Curiosidad</div>
+              <div>Ingenio</div>
+            </div>
+          </div>
         </div>
-      </div>
 
     </div>
 
@@ -1309,7 +1382,7 @@ function aplicarFiltro(categoria, valor) {
 
     <div class="quiz-container color-fondo2" style="padding: 5rem;">
       <div class="quiz-header">
-        <h3>Y tú... ¿Qué personaje de Hogwarts eres?</h3>
+        <h3>Y vos... ¿Qué personaje de Hogwarts sos?</h3>
         <p class="quiz-subtitle">Descubre cuál de los 30 personajes refleja mejor tu personalidad</p>
       </div>
     
